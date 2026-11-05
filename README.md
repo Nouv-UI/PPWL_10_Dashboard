@@ -21,6 +21,20 @@ Laravel is a web application framework with expressive, elegant syntax. We belie
 
 Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
+## Portfolio Dashboard
+
+Fitur praktikum tersedia setelah migration dan seed dijalankan:
+
+```bash
+php artisan migrate --seed
+php artisan storage:link
+```
+
+Login seed: `admin@example.com` dengan password `password123`. Dashboard menampilkan jumlah
+project Published/Draft dan Skill Teratas. Project dapat diedit melalui menu **Projects**;
+upload gallery dibatasi maksimal 10 gambar per project dengan lebar minimal 800 px, dan
+caption gallery dapat diperbarui melalui form `PUT`.
+
 ## Learning Laravel
 
 Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
