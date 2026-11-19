@@ -37,6 +37,11 @@ class Project extends Model
         return $this->belongsToMany(Skill::class);
     }
 
+    public function technologies(): BelongsToMany
+    {
+        return $this->belongsToMany(Technology::class);
+    }
+
     public function galleries(): HasMany
     {
         return $this->hasMany(Gallery::class);
