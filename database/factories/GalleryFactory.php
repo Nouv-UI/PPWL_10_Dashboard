@@ -17,8 +17,9 @@ class GalleryFactory extends Factory
     {
         return [
             'project_id' => Project::factory(),
-            'image_path' => 'gallery/example.jpg',
+            'image' => 'gallery/example.jpg',
             'caption' => fake()->sentence(),
+            'sort_order' => 0,
         ];
     }
 }

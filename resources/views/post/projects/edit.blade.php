@@ -11,9 +11,19 @@
                     @csrf
                     @method('PUT')
                     <div>
-                        <x-input-label for="title" value="Judul" />
-                        <x-text-input id="title" name="title" type="text" class="mt-1 block w-full" :value="old('title', $project->title)" required />
-                        <x-input-error :messages="$errors->get('title')" class="mt-2" />
+                        <x-input-label for="name" value="Nama project" />
+                        <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $project->name)" required />
+                        <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                    </div>
+                    <div>
+                        <x-input-label for="category_id" value="Kategori" />
+                        <select id="category_id" name="category_id" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                            <option value="">Pilih kategori</option>
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}" @selected(old('category_id', $project->category_id) == $category->id)>{{ $category->name }}</option>
+                            @endforeach
+                        </select>
+                        <x-input-error :messages="$errors->get('category_id')" class="mt-2" />
                     </div>
                     <div>
                         <x-input-label for="description" value="Deskripsi" />
@@ -32,7 +42,7 @@
                     <div>
                         <x-input-label for="thumbnail" value="Thumbnail baru (opsional)" />
                         <input id="thumbnail" name="thumbnail" type="file" accept="image/jpeg,image/png,image/webp" class="mt-1 block w-full text-sm text-gray-600">
-                        <p class="mt-1 text-xs text-gray-500">JPG, PNG, atau WEBP, maksimal 4 MB.</p>
+                        <p class="mt-1 text-xs text-gray-500">JPG, PNG, atau WEBP, minimal 400×300 px dan maksimal 2 MB.</p>
                         <x-input-error :messages="$errors->get('thumbnail')" class="mt-2" />
                     </div>
                     <div>
@@ -56,7 +66,7 @@
                 <form method="POST" action="{{ route('post.projects.gallery.store', $project) }}" enctype="multipart/form-data" class="mt-4 space-y-3">
                     @csrf
                     <input type="file" name="images[]" multiple accept="image/jpeg,image/png,image/webp" class="block w-full text-sm text-gray-600">
-                    <p class="text-xs text-gray-500">Lebar minimal 800 px, maksimal 4 MB per file, total maksimal 10 gambar/project.</p>
+                    <p class="text-xs text-gray-500">JPG, PNG, atau WEBP, maksimal 4 MB per file dan 10 gambar/project.</p>
                     <x-input-error :messages="$errors->get('images')" class="mt-2" />
                     <x-input-error :messages="$errors->get('images.*')" class="mt-2" />
                     <x-primary-button>Upload gallery</x-primary-button>
@@ -72,7 +82,7 @@
                                 <input name="caption" value="{{ $gallery->caption }}" maxlength="255" class="min-w-0 flex-1 rounded border-gray-300 text-sm" placeholder="Caption">
                                 <button class="text-sm font-medium text-indigo-600">Simpan</button>
                             </form>
-                            <form method="POST" action="{{ route('post.gallery.destroy', $gallery) }}" class="mt-2">
+                            <form method="POST" action="{{ route('post.gallery.destroy', ['project' => $project, 'gallery' => $gallery]) }}" class="mt-2">
                                 @csrf
                                 @method('DELETE')
                                 <button class="text-sm text-red-600" onclick="return confirm('Hapus gambar ini?')">Hapus gambar</button>

@@ -7,7 +7,13 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="grid gap-6 md:grid-cols-2">
+            <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
+                <x-stat-card label="Projects" :value="$totalProjects" />
+                <x-stat-card label="Categories" :value="$totalCategories" color="text-green-600" />
+                <x-stat-card label="Technologies" :value="$totalTechnologies" color="text-purple-600" />
+                <x-stat-card label="Skills" :value="$totalSkills" color="text-orange-600" />
+            </div>
+            <div class="mt-6 grid gap-6 md:grid-cols-2">
                 <div class="rounded-lg bg-white p-6 shadow-sm">
                     <p class="text-sm text-gray-500">Published</p>
                     <p class="mt-2 text-3xl font-bold text-green-600">{{ $publishedCount }}</p>
@@ -15,6 +21,22 @@
                 <div class="rounded-lg bg-white p-6 shadow-sm">
                     <p class="text-sm text-gray-500">Draft</p>
                     <p class="mt-2 text-3xl font-bold text-yellow-600">{{ $draftCount }}</p>
+                </div>
+            </div>
+            <div class="mt-6 rounded-lg bg-white p-6 shadow-sm">
+                <div class="flex items-center justify-between">
+                    <h3 class="font-semibold text-gray-900">Project Terbaru</h3>
+                    <a href="{{ route('post.projects.index') }}" class="text-sm text-indigo-600">Kelola project</a>
+                </div>
+                <div class="mt-4 divide-y">
+                    @forelse ($latestProjects as $project)
+                        <div class="flex items-center justify-between py-3">
+                            <span class="font-medium text-gray-900">{{ $project->name }}</span>
+                            <span class="text-sm text-gray-500">{{ $project->category?->name ?? 'Tanpa kategori' }}</span>
+                        </div>
+                    @empty
+                        <p class="py-3 text-sm text-gray-500">Belum ada project.</p>
+                    @endforelse
                 </div>
             </div>
             <div class="mt-6 rounded-lg bg-white p-6 shadow-sm">

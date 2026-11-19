@@ -2,7 +2,10 @@
     <x-slot name="header">
         <div class="flex items-center justify-between">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">Projects</h2>
-            <a href="{{ route('dashboard') }}" class="text-sm text-indigo-600 hover:text-indigo-900">Dashboard</a>
+            <div class="flex items-center gap-4">
+                <a href="{{ route('post.projects.create') }}" class="text-sm font-medium text-indigo-600 hover:text-indigo-900">Tambah project</a>
+                <a href="{{ route('dashboard') }}" class="text-sm text-indigo-600 hover:text-indigo-900">Dashboard</a>
+            </div>
         </div>
     </x-slot>
 
@@ -19,12 +22,18 @@
                         @endif
                         <div class="p-5">
                             <div class="flex items-start justify-between gap-3">
-                                <h3 class="font-semibold text-gray-900">{{ $project->title }}</h3>
+                                <h3 class="font-semibold text-gray-900">{{ $project->name }}</h3>
                                 <span class="rounded-full px-2 py-1 text-xs {{ $project->status === 'published' ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700' }}">{{ ucfirst($project->status) }}</span>
                             </div>
+                            <p class="mt-1 text-xs text-gray-500">{{ $project->category?->name ?? 'Tanpa kategori' }}</p>
                             <p class="mt-2 text-sm text-gray-600">{{ Str::limit($project->description, 110) }}</p>
                             <p class="mt-3 text-xs text-gray-500">{{ $project->galleries->count() }} gallery · {{ $project->skills->count() }} skill</p>
                             <a href="{{ route('post.projects.edit', $project) }}" class="mt-4 inline-block text-sm font-medium text-indigo-600 hover:text-indigo-900">Edit project</a>
+                            <form method="POST" action="{{ route('post.projects.destroy', $project) }}" class="mt-2" onsubmit="return confirm('Hapus project ini?')">
+                                @csrf
+                                @method('DELETE')
+                                <button class="text-sm text-red-600">Hapus project</button>
+                            </form>
                         </div>
                     </article>
                 @empty

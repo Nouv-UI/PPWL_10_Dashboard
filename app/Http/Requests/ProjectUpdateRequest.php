@@ -15,10 +15,17 @@ class ProjectUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['required', 'string', 'max:150'],
+            'name' => ['required', 'string', 'max:150'],
+            'category_id' => ['required', 'exists:categories,id'],
             'description' => ['nullable', 'string', 'max:5000'],
             'status' => ['required', Rule::in(['published', 'draft'])],
-            'thumbnail' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:4096'],
+            'thumbnail' => [
+                'nullable',
+                'image',
+                'mimes:jpg,jpeg,png,webp',
+                'max:2048',
+                'dimensions:min_width=400,min_height=300',
+            ],
             'skill_ids' => ['nullable', 'array'],
             'skill_ids.*' => [
                 'integer',

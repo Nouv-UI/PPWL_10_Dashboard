@@ -11,8 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('categories_and_technologies', function (Blueprint $table) {
-            //
+        Schema::table('categories', function (Blueprint $table) {
+            $table->string('slug')->nullable()->unique();
+        });
+
+        Schema::table('technologies', function (Blueprint $table) {
+            $table->string('slug')->nullable()->unique();
         });
     }
 
@@ -21,8 +25,14 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('categories_and_technologies', function (Blueprint $table) {
-            //
+        Schema::table('categories', function (Blueprint $table) {
+            $table->dropUnique(['slug']);
+            $table->dropColumn('slug');
+        });
+
+        Schema::table('technologies', function (Blueprint $table) {
+            $table->dropUnique(['slug']);
+            $table->dropColumn('slug');
         });
     }
 };

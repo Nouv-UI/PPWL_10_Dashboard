@@ -11,11 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        chema::table('projects', function (Blueprint $table) {
-            $table->string('slug')->nullable()->unique()->after('name');
+        Schema::table('projects', function (Blueprint $table) {
+            $table->string('slug')->nullable()->unique()->after('title');
             $table->string('short_description')->nullable()->after('slug');
-            $table->text('description')->nullable()->after('short_description');
-            $table->string('status')->default('draft')->after('description');
             $table->date('project_date')->nullable();
             $table->boolean('is_featured')->default(false);
             $table->string('project_url')->nullable();
@@ -29,9 +27,14 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('projects', function (Blueprint $table) {
-            $table->dropUnique(['slug']); 
-            $table->dropColumn([ 
-                'slug', 'short_description', 'description', 'status', 'project_date', 'is_featured', 'project_url', 'repository_url'
+            $table->dropUnique(['slug']);
+            $table->dropColumn([
+                'slug',
+                'short_description',
+                'project_date',
+                'is_featured',
+                'project_url',
+                'repository_url',
             ]);
         });
     }

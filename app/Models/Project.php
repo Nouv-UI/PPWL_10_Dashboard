@@ -14,6 +14,8 @@ class Project extends Model
 
     protected $fillable = [
         'user_id',
+        'name',
+        'category_id',
         'title',
         'description',
         'status',
@@ -25,6 +27,11 @@ class Project extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class);
+    }
+
     public function skills(): BelongsToMany
     {
         return $this->belongsToMany(Skill::class);
@@ -33,5 +40,10 @@ class Project extends Model
     public function galleries(): HasMany
     {
         return $this->hasMany(Gallery::class);
+    }
+
+    public function images(): HasMany
+    {
+        return $this->hasMany(ProjectImage::class)->orderBy('sort_order');
     }
 }

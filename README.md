@@ -23,7 +23,7 @@ Laravel is accessible, powerful, and provides tools required for large, robust a
 
 ## Portfolio Dashboard
 
-Fitur praktikum tersedia setelah migration dan seed dijalankan:
+Siapkan database dan storage publik dengan:
 
 ```bash
 php artisan migrate --seed
@@ -31,9 +31,14 @@ php artisan storage:link
 ```
 
 Login seed: `admin@example.com` dengan password `password123`. Dashboard menampilkan jumlah
-project Published/Draft dan Skill Teratas. Project dapat diedit melalui menu **Projects**;
-upload gallery dibatasi maksimal 10 gambar per project dengan lebar minimal 800 px, dan
-caption gallery dapat diperbarui melalui form `PUT`.
+project, kategori, teknologi, dan skill, serta status project dan daftar project terbaru.
+Project dapat dibuat dan diedit melalui menu **Projects** dengan kategori dan thumbnail.
+Thumbnail harus berupa JPG, PNG, atau WEBP, berukuran minimal 400×300 px dan maksimal 2 MB.
+Gallery menerima hingga 10 gambar per project (JPG, PNG, atau WEBP, maksimal 4 MB per file);
+caption dapat diperbarui, dan penghapusan gambar turut menghapus file dari storage.
+
+Portfolio publik tersedia di `/projects`; detail project yang berstatus Published tersedia
+melalui tautan pada daftar tersebut.
 
 ## Learning Laravel
 

@@ -17,7 +17,7 @@ class GalleryUploadRequest extends FormRequest
 
         return [
             'images' => ['required', 'array', 'min:1', 'max:' . $remaining],
-            'images.*' => ['required', 'image', 'mimes:jpg,jpeg,png,webp', 'max:6800', 'dimensions:min_width=800'],
+            'images.*' => ['required', 'image', 'mimes:jpg,jpeg,png,webp', 'max:4096'],
         ];
     }
 }
