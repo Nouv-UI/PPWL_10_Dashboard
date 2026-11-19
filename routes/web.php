@@ -6,6 +6,7 @@ use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SkillController;
+use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -38,6 +39,11 @@ Route::prefix('post')->name('post.')->middleware('auth')->group(function () {
 
 Route::get('/projects', [PortfolioController::class, 'projects'])->name('projects');
 Route::get('/projects/{project}', [PortfolioController::class, 'show'])->name('projects.show');
+
+Route::get('/contact', [ContactController::class, 'create'])->name('contact');
+Route::post('/contact', [ContactController::class, 'store'])
+    ->middleware('throttle:contact')
+    ->name('contact.store');
 
 Route::get('/dashboard', DashboardController::class)
     ->middleware(['auth', 'verified'])
