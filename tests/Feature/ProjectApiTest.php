@@ -48,4 +48,11 @@ class ProjectApiTest extends TestCase
 
         $this->getJson('/api/projects/draft-project')->assertNotFound();
     }
+
+    public function test_unknown_project_returns_a_json_404_response(): void
+    {
+        $this->getJson('/api/projects/does-not-exist')
+            ->assertNotFound()
+            ->assertJsonStructure(['message']);
+    }
 }
